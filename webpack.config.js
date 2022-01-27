@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 let mode = 'development';
 let target = 'web';
@@ -16,6 +17,12 @@ const plugins = [
   }),
   new HtmlWebpackPlugin({
     template: './src/index.html',
+  }),
+  new CopyPlugin ({
+    patterns: [{
+    from: path.resolve(__dirname, 'src/assets/images'),
+    to: path.resolve(__dirname, 'dist/img')
+    }]
   }),
 ];
 
