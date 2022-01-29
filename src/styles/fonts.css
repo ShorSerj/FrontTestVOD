@@ -22,14 +22,15 @@
     src: url('../assets/fonts/Roboto-Medium.ttf') format('ttf');
 }
 
-/* @font-face {
-    font-family: 'Jost';
+@font-face {
+    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url('../assets/fonts/Jost-Bold.ttf') format('ttf');
+    src: url('../assets/fonts/Roboto-Bold.ttf') format('ttf');
 }
 
+/*
 @font-face {
     font-family: 'Forum';
     font-style: normal;

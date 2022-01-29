@@ -1,23 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import s from './ContactForm.module.scss'
 import Keyboard from './Keybard/Keyboard.jsx'
 
-function ContactForm(prop) {
+function ContactForm(props) {
+  const [number, setNumber] = useState('')
+
+  const onNumberChange = (e) => {
+
+  }
   return (
-    <div className={s.contactForm}>
+    <form className={s.contactForm}>
       <h3 className={s.title}>Введите ваш номер мобильного телефона</h3>
       <div className={s.input__wrapper}>
-        <label htmlFor="">+7(___)___-__-__</label>
-        <input
-          className={s.input__login} 
+        <label htmlFor="phoneNumber">{number}</label>
+        <input autoFocus={true}
           type="tel"
-          placeholder=""
+          id='phoneNumber'
+          placeholder="Your phone number"
         />
       </div>
-      <p>и с Вами свяжется наш менеждер для дальнейшей консультации</p>
-      <Keyboard/>
-    </div>
+      <p className={s.text}>и с Вами свяжется наш менеждер для дальнейшей консультации</p>
+      <Keyboard onNumberChange={onNumberChange}/>
+    </form>
   )
 }
 
 export default ContactForm
+
