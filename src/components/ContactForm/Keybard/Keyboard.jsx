@@ -7,15 +7,15 @@ const Keyboard = (prop) => {
         const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 'Стереть',0]
         return arr.map(item => {
             return( 
-                <div className={item === 'Стереть' ? s.button +' '+ s.clear : s.button} key={arr.indexOf(item)} onClick={()=> console.log(item)}>
-                    <span>{item}</span>
+                <div className={item === 'Стереть' ? s.button +' '+ s.clear : s.button} key={arr.indexOf(item)} onClick={()=> prop.addNumber(item)} tabIndex="-1">
+                    <span tabIndex="-1">{item}</span>
                 </div>
             )
         })
     }
     
     return( 
-        <div className={s.keyboard}>
+        <div className={s.keyboard} tabIndex="0">
             {button()}
         </div>
     )

@@ -10,7 +10,7 @@ function Banner(prop) {
         </div>
         <img src="/img/qr-code.png" alt="" />
         <p className={s.baner__instruction}>Сканируйте QR-код или нажмите ОК</p>
-      <button className={s.baner__button}>OK</button>
+      <button className={s.baner__button} tabIndex="0">OK</button>
     </div>
   )
 }
