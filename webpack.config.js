@@ -60,7 +60,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|svg|webp|ico)$/i,
+        test: /\.(png|jpe?g|gif|svg|webp|ico|mp4)$/i,
         type: mode === 'production' ? 'asset' : 'asset/resource',
       },
       {

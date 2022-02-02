@@ -1,104 +1,253 @@
-.contactForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 380px;
-    height: 721px;
-    background: #86D3F4;
-    padding: 72px 0;
+.content {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
 
-    .title {
-        text-align: center;
-        font-size: 26px;
-        line-height: 30px;
-    }
-
-    .input__wrapper {
-        margin: 13px auto;
-
-        label {
-            font-weight: 700;
-            font-size: 32px;
-            line-height: 37px;
-            letter-spacing: 2.1px;
-            caret-color: transparent;
-            background-color: #86D3F4;
-            text-align: center;
-        }
-
-        input {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            margin: -1px;
-            border: 0;
-            padding: 0;
-            white-space: nowrap;
-            clip-path: inset(100%);
-            clip: rect(0 0 0 0);
-            overflow: hidden;
-        }
-    }
-
-    .text {
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 16px;
-        text-align: center;
-        margin: 0 30px;
-    }
-
-    .keyboard {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        justify-items: center;
+    .close {
+        border: 2px solid #000000;
+        height: 52px;
+        width: 88px;
+        background: #FFFFFF;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        justify-content: center;
         align-items: center;
-        margin: 33px 0;
+        font-size: 25px;
 
-        &:focus {
-            background-color: rgba($color: #000000, $alpha: 0.2);
+        &_active {
+            background: #000000;
+            color: #FFFFFF;
+        }
+    }
+
+    .contactForm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 380px;
+        height: 721px;
+        background: #86D3F4;
+        padding: 72px 0;
+
+        .title {
+            text-align: center;
+            font-size: 26px;
+            line-height: 30px;
         }
 
-        .button {
-            border: 2px solid #000000;
-            box-sizing: border-box;
-            width: 88px;
-            height: 52px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
+        .input__wrapper {
+            margin: 13px auto;
 
-            span {
-                font-weight: 500;
-                font-size: 16px;
-                line-height: 19px;
+            label {
+                font-weight: 700;
+                font-size: 32px;
+                line-height: 37px;
+                letter-spacing: 2.1px;
+                caret-color: transparent;
+                background-color: #86D3F4;
+                text-align: center;
             }
 
-            &:hover,
+            input {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                margin: -1px;
+                border: 0;
+                padding: 0;
+                white-space: nowrap;
+                clip-path: inset(100%);
+                clip: rect(0 0 0 0);
+                overflow: hidden;
+            }
+        }
+
+        .text {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 16px;
+            text-align: center;
+            margin: 0 30px;
+        }
+
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            justify-items: center;
+            align-items: center;
+            margin: 33px 0;
+
             &:focus {
+                background-color: rgba($color: #000000, $alpha: 0.2);
+            }
+
+            .button {
+                border: 2px solid #000000;
+                box-sizing: border-box;
+                width: 88px;
+                height: 52px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                span {
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 19px;
+                }
+
+                &:hover,
+                &:focus {
+                    background-color: #000000;
+
+                    span {
+                        color: #FFFFFF;
+                    }
+                }
+            }
+
+            .active {
                 background-color: #000000;
 
                 span {
                     color: #FFFFFF;
                 }
             }
-        }
 
-        .active {
-            background-color: #000000;
-
-            span {
-                color: #FFFFFF;
+            .clear {
+                grid-column: span 2;
+                width: 100%;
+                height: 100%;
+                text-transform: uppercase;
             }
         }
 
-        .clear {
-            grid-column: span 2;
-            width: 100%;
-            height: 100%;
-            text-transform: uppercase;
+        .checkbox {
+            display: flex;
+            width: 284px;
+            align-items: center;
+            margin-top: 19px;
+
+            input {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                margin: -1px;
+                border: 0;
+                padding: 0;
+                white-space: nowrap;
+                clip-path: inset(100%);
+                clip: rect(0 0 0 0);
+                overflow: hidden;
+            }
+
+            .checkbox__style {
+                display: inline-block;
+                border: 2px solid #000000;
+                min-width: 40px;
+                height: 40px;
+                position: relative;
+                cursor: pointer;
+
+                .checked {
+                    position: absolute;
+                    top: 2px;
+                    left: 7px;
+                    font-size: 30px;
+                }
+
+                &:hover {
+                    border: 5px solid #000000;
+
+                    .checked {
+                        position: absolute;
+                        top: 0px;
+                        left: 5px;
+                        font-size: 30px;
+                    }
+
+                }
+
+            }
+
+            .checkbox__active {
+                border: 5px solid #000000;
+
+                .checked {
+                    position: absolute;
+                    top: 0px;
+                    left: 5px;
+                    font-size: 30px;
+                }
+            }
+
+            p {
+                margin-left: 20px;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 16px;
+                color: #565656;
+            }
         }
+
+        .button__submite {
+            margin-top: 13px;
+            border: 1px solid #4E4E4E;
+            background-color: inherit;
+            width: 284px;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            text-transform: uppercase;
+            color: #4E4E4E;
+            padding: 12px 0;
+
+            &:hover {
+                background: #000000;
+                color: white;
+            }
+
+            &_active {
+                margin-top: 13px;
+                border: 1px solid #4E4E4E;
+                width: 284px;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 19px;
+                text-transform: uppercase;
+                padding: 12px 0;
+                background: #000000;
+                color: white;
+            }
+        }
+    }
+
+    .qrCode__wrapper {
+        display: flex;
+        width: 310px;
+        position: absolute;
+        bottom: 40px;
+        right: 40px;
+        justify-content: center;
+        align-items: center;
+
+        .qrCode__text {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            text-transform: uppercase;
+            color: #f7b1b1;
+        }
+
+        .qrCode__img {
+            width: 110px;
+            max-height: 110px;
+        }
+
     }
 }
