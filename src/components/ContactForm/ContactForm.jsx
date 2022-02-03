@@ -1,9 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import Keyboard from './Keyboard/Keyboard.jsx'
 import s from './ContactForm.module.scss'
 
-function ContactForm({handleSubmit }) {
-  const refKeyword = useRef();
+function ContactForm({handleSubmit, setPage }) {
   const imageRefs = []
 
   const [number, setNumber] = useState('+7(___)___-__-__')
@@ -31,9 +30,14 @@ function ContactForm({handleSubmit }) {
       }else {
         arr[arr.length-1] = '_'
       }
+
     }else if(e.code !== 'Space'){
       let key = e?.key || e
-      Number.isInteger(+key) ? arr[arr.indexOf('_') > 0 ? arr[arr.indexOf('_')] = key : null] : null
+       if(Number.isInteger(+key)){
+         if(arr.indexOf('_') > 0){
+          arr[arr.indexOf('_')] = key
+         }
+       }
     }
     setNumber(arr.join(''))
   }
@@ -107,12 +111,12 @@ function ContactForm({handleSubmit }) {
       <h3 className={s.title}>Введите ваш номер мобильного телефона</h3>
       <div className={s.input__wrapper}>
         <label htmlFor="phoneNumber">{number}</label>
-        <input type="tel" name="phoneNumber" id="phoneNumber" value={number} onChange={addNumber} autoComplete="off" ref={refKeyword}/>
+        <input type="tel" name="phoneNumber" id="phoneNumber" value={number} onChange={addNumber} autoComplete="off"/>
       </div>
       <p className={s.text}>и с Вами свяжется наш менеждер для дальнейшей консультации</p>
       <Keyboard imageRefs={imageRefs} focus={focus} addNumber={addNumber}/>
       <div className={s.checkbox}>
-        <label htmlFor="checkbox" className={focus == 11 ? s.checkbox__active + ' ' + s.checkbox__style : s.checkbox__style}>
+        <label htmlFor="checkbox" className={s.checkbox__style + ' ' + (focus == 11 ? s.checkbox__active   : null)}>
           {check && <span className={s.checked}>&#10003;</span>}
         </label>
         <input type="checkbox" id='checkbox' checked={check} onChange={soldCheckbox} ref={ref => {
@@ -122,8 +126,8 @@ function ContactForm({handleSubmit }) {
       <button className={focus == 12 ? s.button__submite_active : s.button__submite} type='submite' ref={ref => {
             ref !=null ? imageRefs.push(ref) : null}}>Подтвердить номер</button>
     </form>
-    <div className={focus == 13 ? s.close_active + ' ' + s.close : s.close} ref={ref => {
-            ref !=null ? imageRefs.push(ref) : null}} onClick={()=> close}>&#x2715;</div>
+    <div className={s.close + ' ' + (focus == 13 ? s.close_active : '')} ref={ref => {
+            ref !=null ? imageRefs.push(ref) : null}} onClick={()=> setPage(0)}>&#x2715;</div>
     <div className={s.qrCode__wrapper}>
       <p className={s.qrCode__text}>Сканируйте QR-код ДЛЯ ПОЛУЧЕНИЯ ДОПОЛНИТЕЛЬНОЙ ИНФОРМАЦИИ</p>
       <img  className={s.qrCode__img} src="/img/qr-code.png" alt="" />
