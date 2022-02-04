@@ -132,6 +132,16 @@
             width: 284px;
             align-items: center;
             margin-top: 19px;
+            height: 52px;
+
+            .validationError {
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 19px;
+                text-transform: uppercase;
+                color: #EA0000;
+                margin: 0 auto;
+            }
 
             input {
                 position: absolute;
@@ -212,9 +222,22 @@
                 color: white;
             }
 
-            &_active {
+            &_enable {
                 margin-top: 13px;
                 border: 1px solid #4E4E4E;
+                width: 284px;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 19px;
+                text-transform: uppercase;
+                padding: 12px 0;
+                background: #000000;
+                color: white;
+            }
+
+            &_active {
+                margin-top: 13px;
+                border: 3px solid white;
                 width: 284px;
                 font-weight: 500;
                 font-size: 16px;
@@ -241,7 +264,7 @@
             font-size: 16px;
             line-height: 19px;
             text-transform: uppercase;
-            color: #f7b1b1;
+            color: #FFFFFF;
         }
 
         .qrCode__img {

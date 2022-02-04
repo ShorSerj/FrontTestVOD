@@ -12,8 +12,6 @@ const Banner = ({visual, setPage, stopVideo}) => {
         <p className={s.baner__instruction}>Сканируйте QR-код или нажмите ОК</p>
       <button className={s.baner__button} onClick={(e) => {
         setPage(1)
-        // player.stopVideo();
-        console.log('hi')
         stopVideo()
       }}>OK</button>
     </div>

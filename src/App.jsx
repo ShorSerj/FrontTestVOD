@@ -3,7 +3,7 @@ import YouTube from 'react-youtube';
 import './styles/reset.css'
 import s from './App.module.scss'
 import Banner from './components/Banner/Banner.jsx';
-import ContactForm from './components/ContactForm/ContactForm.jsx';
+import Contact from './components/ContactForm/Contact.jsx';
 
 
 function App(props) {
@@ -39,12 +39,9 @@ function App(props) {
 
   const _onReady = (event)=> {
     setVideo(event.target)
-    // console.log(event.target)
-    // video.setShuffle(false)
   }
 
   const stopVideo = (event)=> {
-    // video.setShuffle(true)
     video.pauseVideo()
   }
   const playVideo = (event)=> {
@@ -54,9 +51,7 @@ function App(props) {
     <>
       <YouTube className={s.video} videoId="M7FIvfx5J10" opts={opts} onReady={_onReady} stopVideo={stopVideo}/>
       {page == 0 ? <Banner visual={visual} setPage={setPage} stopVideo={stopVideo}/> : null}
-      {page == 1 ? <ContactForm visual={visual} setPage={setPage} /> : null}
-
-      {/* <ContactForm /> */}
+      {page == 1 ? <Contact visual={visual} setPage={setPage} /> : null}
     </>
   )
 }

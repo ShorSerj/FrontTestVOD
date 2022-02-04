@@ -1,17 +1,22 @@
 import React, {useState, useEffect} from 'react';
+import { connect } from 'react-redux'
+import {reduxForm} from 'redux-form'
+import { submit } from '../../redux/submite-reducer.js'
 import Keyboard from './Keyboard/Keyboard.jsx'
-import s from './ContactForm.module.scss'
+import s from './Contact.module.scss'
 
-function ContactForm({handleSubmit, setPage }) {
+function ContactForm({handleSubmit, setPage, error }) {
   const imageRefs = []
 
   const [number, setNumber] = useState('+7(___)___-__-__')
   const [focus, setFocus] = useState(null)
   const [check, setCheck] = useState(false);
+  const [validation, setValidation] = useState(false);
 
   useEffect(() => {
     window.addEventListener('keydown', addNumber);
     window.addEventListener('keydown', navigationWithArrow);
+    validTest()
     return () => {
       window.removeEventListener('keydown', addNumber);
       window.removeEventListener('keydown', navigationWithArrow);
@@ -30,12 +35,12 @@ function ContactForm({handleSubmit, setPage }) {
       }else {
         arr[arr.length-1] = '_'
       }
-
+      
     }else if(e.code !== 'Space'){
       let key = e?.key || e
        if(Number.isInteger(+key)){
          if(arr.indexOf('_') > 0){
-          arr[arr.indexOf('_')] = key
+          arr[arr.indexOf('_')] = key 
          }
        }
     }
@@ -105,25 +110,45 @@ function ContactForm({handleSubmit, setPage }) {
   const close = () => {
 
   }
+const validTest = () => {
+  let arr = number.split('')
+  let tel = []
+  for(let i = 2; i < arr.length; i++){
+    if(Number.isInteger(+arr[i])){
+      tel.push(arr[i])
+    }
+  }
+  
+  submit(tel.join(''))
+  
+  arr.indexOf('_') == -1 ? setValidation(true) : setValidation(false)
+}
+
   return (
     <div className={s.content}>
     <form className={s.contactForm} onSubmit={handleSubmit}>
       <h3 className={s.title}>Введите ваш номер мобильного телефона</h3>
       <div className={s.input__wrapper}>
         <label htmlFor="phoneNumber">{number}</label>
-        <input type="tel" name="phoneNumber" id="phoneNumber" value={number} onChange={addNumber} autoComplete="off"/>
+        <input type="tel" name="phoneNumber" id="phoneNumber" value={number} onChange={addNumber} autoComplete="off" />
       </div>
       <p className={s.text}>и с Вами свяжется наш менеждер для дальнейшей консультации</p>
       <Keyboard imageRefs={imageRefs} focus={focus} addNumber={addNumber}/>
       <div className={s.checkbox}>
-        <label htmlFor="checkbox" className={s.checkbox__style + ' ' + (focus == 11 ? s.checkbox__active   : null)}>
-          {check && <span className={s.checked}>&#10003;</span>}
-        </label>
-        <input type="checkbox" id='checkbox' checked={check} onChange={soldCheckbox} ref={ref => {
-            ref !=null ? imageRefs.push(ref) : null}} />
-        <p>Согласие на обработку персональных данных</p>
+        
+        {validation 
+        ? <>
+            <label htmlFor="checkbox" className={s.checkbox__style + ' ' + (focus == 11 ? s.checkbox__active   : null)}>
+              {check && <span className={s.checked}>&#10003;</span>}
+            </label>
+            <input type="checkbox" id='checkbox' checked={check} onChange={soldCheckbox} ref={ref => {
+                ref !=null ? imageRefs.push(ref) : null}} />
+            <p>Согласие на обработку персональных данных</p>
+          </>
+        : <span className={s.validationError}>Неверно введён номер</span>
+        }
       </div>
-      <button className={focus == 12 ? s.button__submite_active : s.button__submite} type='submite' ref={ref => {
+      <button className={(validation ? s.button__submite_enable : s.button__submite)  + ' ' + (focus == 12 ? s.button__submite_active : s.button__submite)} ref={ref => {
             ref !=null ? imageRefs.push(ref) : null}}>Подтвердить номер</button>
     </form>
     <div className={s.close + ' ' + (focus == 13 ? s.close_active : '')} ref={ref => {
@@ -136,4 +161,18 @@ function ContactForm({handleSubmit, setPage }) {
     
   )
 }
-export default ContactForm
+
+const SubmiteReduxForm = reduxForm({form:'submite'})(ContactForm)
+
+const Contact = (props) =>{
+  const onSubmit = (formData) => {
+     props.submit(formData.number, formData.rememberMe)
+  }
+  return (
+      <main className={s.container}>
+          <SubmiteReduxForm onSubmit={onSubmit}/>
+      </main>
+  )
+}
+
+export default connect(null, {submit}) (Contact)
