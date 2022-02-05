@@ -17,10 +17,11 @@
         align-items: center;
         font-size: 25px;
 
-        &_active {
+        &:hover, &_active {
             background: #000000;
             color: #FFFFFF;
         }
+        
     }
 
     .contactForm {

@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux'
 import {reduxForm} from 'redux-form'
-import { submit } from '../../redux/submite-reducer.js'
+import { validNumber, setPhoneNumber } from '../../redux/submite-reducer.js'
 import Keyboard from './Keyboard/Keyboard.jsx'
 import s from './Contact.module.scss'
 
-function ContactForm({handleSubmit, setPage, error }) {
+function ContactForm({handleSubmit, setPage, error, playVideo, validNumber, setPhoneNumber }) {
   const imageRefs = []
-
   const [number, setNumber] = useState('+7(___)___-__-__')
   const [focus, setFocus] = useState(null)
   const [check, setCheck] = useState(false);
@@ -16,7 +15,7 @@ function ContactForm({handleSubmit, setPage, error }) {
   useEffect(() => {
     window.addEventListener('keydown', addNumber);
     window.addEventListener('keydown', navigationWithArrow);
-    validTest()
+    validLocalTest()
     return () => {
       window.removeEventListener('keydown', addNumber);
       window.removeEventListener('keydown', navigationWithArrow);
@@ -69,7 +68,7 @@ function ContactForm({handleSubmit, setPage, error }) {
         setFocus(focus + 3)
       }else if(focus >= 7 && focus < 10){
         setFocus(focus + 2)
-      }else if(focus > 9 && focus < imageRefs.length-2) {
+      }else if(focus > 9 && focus <= imageRefs.length-2) {
         setFocus(focus+1)
       }else if (focus == 12) {
         setFocus(13)
@@ -92,14 +91,16 @@ function ContactForm({handleSubmit, setPage, error }) {
       }
     }
     if(e.code === "Enter") {
-      if(focus <10) {
+      if(focus < 10) {
         focus != 9 ? addNumber(focus+1) : addNumber('Стереть')
       }else if(focus == 10) {
         addNumber(0)
       }else if(focus == 11){
         soldCheckbox()
+      }else if (focus == 13){
+        setPage(0)
+        playVideo()
       }
-      
     }
   }
 
@@ -107,10 +108,7 @@ function ContactForm({handleSubmit, setPage, error }) {
     setCheck(!check)
   }
 
-  const close = () => {
-
-  }
-const validTest = () => {
+const validLocalTest = () => {
   let arr = number.split('')
   let tel = []
   for(let i = 2; i < arr.length; i++){
@@ -118,15 +116,19 @@ const validTest = () => {
       tel.push(arr[i])
     }
   }
-  
-  submit(tel.join(''))
-  
-  arr.indexOf('_') == -1 ? setValidation(true) : setValidation(false)
+  tel = tel.join('')
+ 
+  if(arr.indexOf('_') == -1){
+    setValidation(true)
+    setPhoneNumber(tel)
+  } else {
+    setValidation(false)
+  }
 }
 
   return (
     <div className={s.content}>
-    <form className={s.contactForm} onSubmit={handleSubmit}>
+    <form className={s.contactForm} >
       <h3 className={s.title}>Введите ваш номер мобильного телефона</h3>
       <div className={s.input__wrapper}>
         <label htmlFor="phoneNumber">{number}</label>
@@ -142,17 +144,17 @@ const validTest = () => {
               {check && <span className={s.checked}>&#10003;</span>}
             </label>
             <input type="checkbox" id='checkbox' checked={check} onChange={soldCheckbox} ref={ref => {
-                ref !=null ? imageRefs.push(ref) : null}} />
+                ref !=null ? imageRefs.push(ref) : null}}/>
             <p>Согласие на обработку персональных данных</p>
           </>
         : <span className={s.validationError}>Неверно введён номер</span>
         }
       </div>
       <button className={(validation ? s.button__submite_enable : s.button__submite)  + ' ' + (focus == 12 ? s.button__submite_active : s.button__submite)} ref={ref => {
-            ref !=null ? imageRefs.push(ref) : null}}>Подтвердить номер</button>
+            ref !=null ? imageRefs.push(ref) : null}} onClick={() => validNumber()}>Подтвердить номер</button>
     </form>
     <div className={s.close + ' ' + (focus == 13 ? s.close_active : '')} ref={ref => {
-            ref !=null ? imageRefs.push(ref) : null}} onClick={()=> setPage(0)}>&#x2715;</div>
+            ref !=null ? imageRefs.push(ref) : null}} onClick={()=> setPage(0) & playVideo()}>&#x2715;</div>
     <div className={s.qrCode__wrapper}>
       <p className={s.qrCode__text}>Сканируйте QR-код ДЛЯ ПОЛУЧЕНИЯ ДОПОЛНИТЕЛЬНОЙ ИНФОРМАЦИИ</p>
       <img  className={s.qrCode__img} src="/img/qr-code.png" alt="" />
@@ -165,14 +167,19 @@ const validTest = () => {
 const SubmiteReduxForm = reduxForm({form:'submite'})(ContactForm)
 
 const Contact = (props) =>{
-  const onSubmit = (formData) => {
-     props.submit(formData.number, formData.rememberMe)
-  }
+  // const onSubmit = (formData) => {
+  //    props.submit(formData.number, formData.rememberMe)
+  //  onSubmit={onSubmit}}
+  
   return (
       <main className={s.container}>
-          <SubmiteReduxForm onSubmit={onSubmit}/>
+          <SubmiteReduxForm  setPage={props.setPage} playVideo={props.playVideo} setPhoneNumber={props.setPhoneNumber} validNumber={props.validNumber}/>
       </main>
   )
 }
 
-export default connect(null, {submit}) (Contact)
+let mapStateToProps = (state) => ({
+  phoneNumber: state.phoneNumber.phoneNumber,
+})
+
+export default connect(mapStateToProps, {validNumber, setPhoneNumber}) (Contact)

@@ -21,11 +21,6 @@ function App(props) {
       showinfo:0,
       start:0,
       end:60,
-      // rel:0,
-      // ecver:2,
-      // modestbranding:1,
-      // iv_load_policy:3,
-      // ytp_pause_overlay:0
     },
   };
 
@@ -35,7 +30,7 @@ function App(props) {
       clearTimeout(timer);
       setVisual(false)
     }
-  }, [page]);
+  }, [page, video]);
 
   const _onReady = (event)=> {
     setVideo(event.target)
@@ -50,8 +45,8 @@ function App(props) {
   return (
     <>
       <YouTube className={s.video} videoId="M7FIvfx5J10" opts={opts} onReady={_onReady} stopVideo={stopVideo}/>
-      {page == 0 ? <Banner visual={visual} setPage={setPage} stopVideo={stopVideo}/> : null}
-      {page == 1 ? <Contact visual={visual} setPage={setPage} /> : null}
+      {page == 0 ? <Banner visual={visual} setPage={setPage} stopVideo={stopVideo} video={video}/> : null}
+      {page == 1 ? <Contact visual={visual} setPage={setPage} playVideo={playVideo}/> : null}
     </>
   )
 }

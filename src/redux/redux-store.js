@@ -1,11 +1,11 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunkMiddlware from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
-import submiteReducer from "./submite-reducer";
+import phoneNumberReducer from "./submite-reducer";
 
 
 let reduces = combineReducers({
-    submit: submiteReducer,
+    phoneNumber: phoneNumberReducer,
     form: formReducer
 })
 

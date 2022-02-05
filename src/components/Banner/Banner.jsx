@@ -1,7 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './Banner.module.scss'
 
-const Banner = ({visual, setPage, stopVideo}) => {
+const Banner = ({visual, setPage, stopVideo, video}) => {
+  useEffect(() => {
+    window.addEventListener('keydown', navigation);
+    return () => {
+      window.removeEventListener('keydown', navigation);
+    };
+  }, [video]);
+
+  const navigation = (e) => {
+    if(e.code === "Enter") {
+      setPage(1)
+      stopVideo()
+    }
+  }
+
   return (
     <div className={visual ? s.baner_visual : s.baner}>
         <div className={s.title}>
