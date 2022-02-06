@@ -1,12 +1,10 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import thunkMiddlware from 'redux-thunk'
-import {reducer as formReducer} from 'redux-form'
 import phoneNumberReducer from "./submite-reducer";
 
 
 let reduces = combineReducers({
     phoneNumber: phoneNumberReducer,
-    form: formReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

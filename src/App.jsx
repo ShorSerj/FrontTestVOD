@@ -43,11 +43,11 @@ function App(props) {
     video.playVideo()
   }
   return (
-    <>
+    <main>
       <YouTube className={s.video} videoId="M7FIvfx5J10" opts={opts} onReady={_onReady} stopVideo={stopVideo}/>
       {page == 0 ? <Banner visual={visual} setPage={setPage} stopVideo={stopVideo} video={video}/> : null}
       {page == 1 ? <Contact visual={visual} setPage={setPage} playVideo={playVideo}/> : null}
-    </>
+    </main>
   )
 }
 
