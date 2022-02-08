@@ -8,30 +8,30 @@ import Contact from './components/ContactForm/Contact.jsx';
 
 
 function App(props) {
-  // const [visual, setVisual] = useState(false)
+  const [visual, setVisual] = useState(false)
   const [page, setPage] = useState(0)
-  // const [video, setVideo] = useState(false)
+  const [video, setVideo] = useState(false)
 
-  // const opts = { 
-  //   playerVars: {
-  //     autoplay: 1,
-  //     mute:1,
-  //     cc_load_policy:1,
-  //     modestbranding:1,
-  //     controls:0,
-  //     showinfo:0,
-  //     start:0,
-  //     end:60,
-  //   },
-  // };
+  const opts = { 
+    playerVars: {
+      autoplay: 1,
+      mute:1,
+      cc_load_policy:1,
+      modestbranding:1,
+      controls:0,
+      showinfo:0,
+      start:0,
+      end:60,
+    },
+  };
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => setVisual(true), 1000);
-  //   return () => {
-  //     clearTimeout(timer);
-  //     setVisual(false)
-  //   }
-  // }, [page, video]);
+  useEffect(() => {
+    const timer = setTimeout(() => setVisual(true), 5000);
+    return () => {
+      clearTimeout(timer);
+      setVisual(false)
+    }
+  }, [page, video]);
 
   const _onReady = (event)=> {
     setVideo(event.target)
@@ -45,12 +45,10 @@ function App(props) {
   }
   return (
     <main>
-      {/* <YouTube className={s.video} videoId="M7FIvfx5J10" opts={opts} onReady={_onReady} stopVideo={stopVideo}/>
+      <YouTube className={s.video} videoId="M7FIvfx5J10" opts={opts} onReady={_onReady} stopVideo={stopVideo}/>
       {page == 0 ? <Banner visual={visual} setPage={setPage} stopVideo={stopVideo} video={video}/> : null}
-      {page == 1 ? <Contact visual={visual} setPage={setPage} playVideo={playVideo}/> : null} */}
-      {/* {page == 2 ?  */}
-      <Slider setPage={setPage} playVideo={playVideo} />
-      {/* } */}
+      {page == 1 ? <Contact visual={visual} setPage={setPage} playVideo={playVideo}/> : null} 
+      {page == 2 ? <Slider setPage={setPage} playVideo={playVideo} />: null}
     </main>
   )
 }

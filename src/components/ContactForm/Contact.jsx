@@ -1,4 +1,4 @@
-import React, {useState, useEffect, SyntheticEvent} from 'react';
+import React, {useState, useEffect} from 'react';
 import { connect } from 'react-redux'
 import { validNumber, setPhoneNumber, submitData } from '../../redux/submite-reducer.js'
 import Keyboard from './Keyboard/Keyboard.jsx'
@@ -126,6 +126,8 @@ function Contact({setPage, playVideo, validNumber, numberIsValid, messageError, 
       }else if (focus == 11){
         setPage(0)
         playVideo()
+      }else if (focus == 13){
+        onSubmit()
       }
     }
   }
@@ -153,9 +155,9 @@ const validTest = () => {
   }
 }
 const onSubmit = (e) => {
-  e.preventDefault()
-  let qwe = '911'
-  submitData(qwe)
+  e?.preventDefault()
+  submitData(phoneNumber)
+  setPage(2)
   return false
 }
   return (
