@@ -6,8 +6,8 @@ function Keyboard({imageRefs, focus, addNumber}) {
     const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 'Стереть', 0]
     return arr.map((item, index) => {
         return( 
-          <li className={index == focus ? item == 'Стереть' ? s.active +' '+ s.button +' '+ s.clear :  s.active +' '+ s.button : item == 'Стереть' ? s.button +' '+ s.clear :  s.button} key={arr.indexOf(item)} ref={ref => {
-            ref !=null ? imageRefs.push(ref) : null}}onClick={()=> addNumber(item)} >
+          <li className={(item == 'Стереть' ? s.button +' '+ s.clear : s.button) + ' ' + (index == focus ? s.active : '')}
+        key={arr.indexOf(item)} ref={ref => {ref !=null ? imageRefs.push(ref) : null}}onClick={()=> addNumber(item)} >
               <span name={item}>{item}</span>
           </li> 
         )

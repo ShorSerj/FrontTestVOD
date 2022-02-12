@@ -26,7 +26,7 @@ function App(props) {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisual(true), 5000);
+    const timer = setTimeout(() => setVisual(true), 1000);
     return () => {
       clearTimeout(timer);
       setVisual(false)

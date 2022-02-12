@@ -43,12 +43,10 @@ export const validNumber = (phoneNumber) => (dispatch) => {
     if(phoneNumber){
         validAPI.validNumber(phoneNumber).then(response => { 
             if(response.data.valid) {
-                console.log(response)
                 dispatch(setValidPhoneNumber(true))
                 dispatch(setPhoneNumber(phoneNumber))
             }else {
                 let message
-                console.log(response)
                 switch (response.data.error?.code) {
                     case 104 : 
                             message = "Достигнут месячный лимит к API по бесплатной подписке";
