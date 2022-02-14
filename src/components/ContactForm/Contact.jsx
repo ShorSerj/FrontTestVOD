@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import { connect } from 'react-redux'
-import { validNumber, setPhoneNumber, submitData } from '../../redux/submite-reducer.js'
+import { validNumber } from '../common/validation/validation.js'
 import Keyboard from './Keyboard/Keyboard.jsx'
 import s from './Contact.module.scss'
 
-function Contact({setPage, playVideo, validNumber, numberIsValid, messageError, submitData, phoneNumber}) {
+function Contact({setPage, playVideo, numberIsValid, messageError}) {
   const imageRefs = []
   const [number, setNumber] = useState('+7(___)___-__-__')
   const [focus, setFocus] = useState(null)
   const [check, setCheck] = useState(false);
   const [validation, setValidation] = useState(false);
+  const [valid, setValid] = useState('');
   const [fullNumber, setFullNumber] = useState(false);
 
   useEffect(() => {
@@ -24,6 +24,9 @@ function Contact({setPage, playVideo, validNumber, numberIsValid, messageError, 
   useEffect(() => {
     validTest()
   }, [number]);
+  useEffect(() => {
+    console.log(valid)
+  }, [valid]);
 
   useEffect(() => {
     if (fullNumber){
@@ -156,7 +159,6 @@ const validTest = () => {
 }
 const onSubmit = (e) => {
   e?.preventDefault()
-  submitData(phoneNumber)
   setPage(2)
   return false
 }
@@ -172,7 +174,6 @@ const onSubmit = (e) => {
           <p className={s.text}>и с Вами свяжется наш менеждер для дальнейшей консультации</p>
           <Keyboard imageRefs={imageRefs} focus={focus} addNumber={addNumber}/>
           <div className={s.checkbox}>
-            
             {validation 
             ? <>
                 <label htmlFor="checkbox" className={s.checkbox__style + ' ' + (focus == 12   ? s.checkbox__active   : null)}>
@@ -196,14 +197,7 @@ const onSubmit = (e) => {
         </div>
       </div>
     </div>
-    
   )
 }
 
-let mapStateToProps = (state) => ({
-  phoneNumber: state.phoneNumber.phoneNumber,
-  numberIsValid: state.phoneNumber.numberIsValid,
-  messageError: state.phoneNumber.messageError,
-})
-
-export default connect(mapStateToProps, {validNumber, setPhoneNumber, submitData}) (Contact)
+export default Contact

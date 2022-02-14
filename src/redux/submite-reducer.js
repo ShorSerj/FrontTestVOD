@@ -39,30 +39,7 @@ export const setValidPhoneNumber = (validation, messageError) => ({
     messageError
 })
 
-export const validNumber = (phoneNumber) => (dispatch) => {
-    if(phoneNumber){
-        validAPI.validNumber(phoneNumber).then(response => { 
-            if(response.data.valid) {
-                dispatch(setValidPhoneNumber(true))
-                dispatch(setPhoneNumber(phoneNumber))
-            }else {
-                let message
-                switch (response.data.error?.code) {
-                    case 104 : 
-                            message = "Достигнут месячный лимит к API по бесплатной подписке";
-                            break;
-                    case 106 : 
-                            message = "Подождите, слишком много запросов к API по бесплатной подписке";
-                            break;
-                    default:
-                        return dispatch(setValidPhoneNumber(false, "Неверно введён номер"))
-                }
-                dispatch(setValidPhoneNumber(false, message))
-            }
-        
-        })
-    }
-}
+
 
 export const submitData = (phoneNumber) => (dispatch) => {
     if(phoneNumber){
